@@ -4,6 +4,13 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Semantic version tag to publish (for example v0.1.0)"
+        required: true
+        type: string
+        default: "v0.1.0"
 
 permissions:
   contents: write
@@ -14,6 +21,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
@@ -22,12 +31,31 @@ jobs:
         run: |
           python tests/validate_skill.py
           python tests/check_references.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Package
         run: python scripts/package_skill.py
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          INPUT_TAG_NAME: ${{ inputs.tag_name }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/sre-ai-infra-interview-coach-skill.zip \
-            --title "SRE & AI Infrastructure Interview Coach $GITHUB_REF_NAME" \
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            tag_name="$INPUT_TAG_NAME"
+            if [[ ! "$tag_name" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Tag must follow vMAJOR.MINOR.PATCH, e.g. v0.1.0" >&2
+              exit 1
+            fi
+          else
+            tag_name="$GITHUB_REF_NAME"
+          fi
+
+          if gh release view "$tag_name" >/dev/null 2>&1; then
+            echo "Release $tag_name already exists; refusing to overwrite it." >&2
+            exit 1
+          fi
+
+          gh release create "$tag_name" dist/sre-ai-infra-interview-coach-skill.zip \
+            --target "$GITHUB_SHA" \
+            --title "SRE & AI Infrastructure Interview Coach $tag_name" \
             --generate-notes
