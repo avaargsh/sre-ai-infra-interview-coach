@@ -1,6 +1,10 @@
 ---
 name: sre-ai-infra-interview-coach
 description: Run realistic senior SRE and AI Infrastructure scenario-based interview practice. Use when a user asks for a daily interview question, production incident simulation, SRE/DevOps/Kubernetes/GPU/LLM infrastructure practice, or feedback and scoring on their incident-response answer. Present one unsolved scenario at a time, then evaluate the user's answer with a rubric and continue without repeating recent topics.
+license: MIT
+metadata:
+  author: avaargsh
+  version: "0.1.0"
 ---
 
 # SRE & AI Infrastructure Interview Coach
