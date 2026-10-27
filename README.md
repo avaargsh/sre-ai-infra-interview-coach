@@ -24,6 +24,8 @@
 
 如果没有 Skill 安装入口，复制 QUICKSTART.md 中的提示词到普通 ChatGPT 对话即可练习；这属于提示词启动，不等同于安装 Skill。
 
+首次正式 Release 发布前，也可在 [Actions → Validate Skill](https://github.com/avaargsh/sre-ai-infra-interview-coach/actions/workflows/validate.yml) 最新成功的 main 分支运行中下载 Skill package artifact（临时构建产物保留 14 天）；稳定分发请使用 Releases 中的版本化 ZIP。
+
 ### Codex 和兼容 Agent Skills 的工具
 
 本项目使用 SKILL.md 目录结构。请参考所用工具的最新官方安装说明，将整个目录安装至其用户级或仓库级 Skills 路径。OpenAI 指南：[Build skills](https://learn.chatgpt.com/docs/build-skills)。
