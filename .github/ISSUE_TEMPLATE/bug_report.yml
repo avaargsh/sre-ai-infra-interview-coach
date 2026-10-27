@@ -1,0 +1,39 @@
+name: Skill behavior issue
+description: Report a reproducible problem in question generation, scoring, installation, or progress tracking.
+title: "[Bug]: "
+labels:
+  - bug
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include credentials, private personal data, customer data, or confidential incident details.
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should the Skill have done?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead? Include a short sanitized excerpt if useful.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Skill version or commit
+      placeholder: v0.1.0 / main@commit-sha
+    validations:
+      required: false
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: List the shortest steps that reproduce the issue.
+    validations:
+      required: true

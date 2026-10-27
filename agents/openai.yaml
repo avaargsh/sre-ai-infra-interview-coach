@@ -1,0 +1,4 @@
+interface:
+  display_name: "SRE & AI Infra Interview Coach"
+  short_description: "Practice realistic senior SRE and AI infrastructure incidents"
+  default_prompt: "开始今天的资深 SRE / AI Infrastructure 场景面试题，只给题目，不给答案。"

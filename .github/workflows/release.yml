@@ -1,0 +1,33 @@
+name: Build Skill Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate
+        run: |
+          python tests/validate_skill.py
+          python tests/check_references.py
+      - name: Package
+        run: python scripts/package_skill.py
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/sre-ai-infra-interview-coach-skill.zip \
+            --title "SRE & AI Infrastructure Interview Coach $GITHUB_REF_NAME" \
+            --generate-notes
