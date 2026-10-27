@@ -23,6 +23,8 @@ jobs:
         run: python tests/validate_skill.py
       - name: Validate local links
         run: python tests/check_references.py
+      - name: Run skill contract tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Build Skill ZIP
         run: python scripts/package_skill.py
       - name: Upload Skill package for preview
