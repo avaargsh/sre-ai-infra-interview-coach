@@ -25,3 +25,11 @@ jobs:
         run: python tests/check_references.py
       - name: Build Skill ZIP
         run: python scripts/package_skill.py
+      - name: Upload Skill package for preview
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v7
+        with:
+          name: sre-ai-infra-interview-coach-skill
+          path: dist/sre-ai-infra-interview-coach-skill.zip
+          if-no-files-found: error
+          retention-days: 14
