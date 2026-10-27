@@ -47,7 +47,7 @@
     python tests/check_references.py
     python scripts/package_skill.py
 
-打包输出为 dist/sre-ai-infra-interview-coach-skill.zip。发布流程见 docs/RELEASING.md。
+打包输出为 dist/sre-ai-infra-interview-coach-skill.zip。发布流程见 [docs/RELEASING.md](docs/RELEASING.md)。正式发布：打开 GitHub **Actions → Build Skill Release → Run workflow**，选 `main` 并输入版本号（如 `v0.1.0`），工作流会校验、打包并创建 GitHub Release。
 
 ## 质量原则
 
